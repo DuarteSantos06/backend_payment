@@ -2,10 +2,12 @@ package com.example.demo.Service.User;
 
 import com.example.demo.Repository.Entities.User;
 import com.example.demo.Repository.User.UserRepository;
-import com.example.demo.Service.JWTService;
+import com.example.demo.Service.JWT.JWTService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 
 @Service
@@ -30,11 +32,12 @@ public class UserService {
 
     public boolean deleteUser(String token){
         long id=jwtService.getIdByToken(token);
-        User user = userRepo.findById(id);
+        Optional<User> optionalUser = userRepo.findById(id);
 
-        if(user==null){
+        if(optionalUser.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
+        User user=optionalUser.get();
         userRepo.delete(user);
         return true;
     }

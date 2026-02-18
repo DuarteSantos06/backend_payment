@@ -1,7 +1,5 @@
 package com.example.demo.Repository.Entities;
 
-
-
 import jakarta.persistence.*;
 
 @Entity
