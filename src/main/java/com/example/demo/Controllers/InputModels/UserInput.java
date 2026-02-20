@@ -1,15 +1,7 @@
 package com.example.demo.Controllers.InputModels;
 
-public class UserInput {
+public record UserInput(String email, String password) {
 
-    private String email;
-    private String password;
 
-    public String getEmail() {
-        return email;
-    }
-    public String getPassword() {
-        return password;
-    }
 
 }

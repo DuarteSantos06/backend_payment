@@ -18,14 +18,12 @@ public class JWTService {
     }
 
     public String generateToken(long id) {
-        String token=Jwts.builder()
+        return Jwts.builder()
                 .setSubject(String.valueOf(id))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(key)
                 .compact();
-
-        return token;
     }
 
     public long getIdByToken(String token) {

@@ -1,5 +1,7 @@
 package com.example.demo.Service.User;
 
+import com.example.demo.Exceptions.UserDoesNotExistException;
+import com.example.demo.Exceptions.UserDoesNotExistException;
 import com.example.demo.Repository.Entities.User;
 import com.example.demo.Repository.User.UserRepository;
 import com.example.demo.Service.JWT.JWTService;
@@ -30,12 +32,12 @@ public class UserService {
         return jwtService.generateToken(id);
     }
 
-    public boolean deleteUser(String token){
-        long id=jwtService.getIdByToken(token);
-        Optional<User> optionalUser = userRepo.findById(id);
+    public boolean deleteUser(String token)throws UserDoesNotExistException {
+        long userId=jwtService.getIdByToken(token);
+        Optional<User> optionalUser = userRepo.findById(userId);
 
         if(optionalUser.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+            throw new UserDoesNotExistException("User doesn't exist");
         }
         User user=optionalUser.get();
         userRepo.delete(user);

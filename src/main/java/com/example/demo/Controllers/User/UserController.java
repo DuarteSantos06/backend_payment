@@ -16,7 +16,7 @@ public class UserController{
 
     @PostMapping()
     public ResponseEntity<?> addUser(@RequestBody UserInput user){
-        return ResponseEntity.ok(userService.createUser(user.getEmail(),user.getPassword()));
+        return ResponseEntity.ok(userService.createUser(user.email(),user.password()));
     }
 
     @DeleteMapping()
