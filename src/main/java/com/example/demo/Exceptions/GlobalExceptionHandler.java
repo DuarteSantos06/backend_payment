@@ -54,6 +54,17 @@ public class GlobalExceptionHandler {
                 ));
     }
 
+    @ExceptionHandler(UserAlreadyExists.class)
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExists(UserAlreadyExists e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_GATEWAY)
+                .body(new ErrorResponse(
+                        "USER_ALREADY_EXISTS",
+                        "user already exists",
+                        HttpStatus.CONFLICT.value()
+                ));
+    }
+
     @ExceptionHandler(PaymentProcessingException.class)
     public ResponseEntity<ErrorResponse> handlePaymentProcessingException(PaymentProcessingException e) {
         return ResponseEntity
@@ -67,6 +78,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleOtherExceptions(Exception e) {
+        System.out.println(e.getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse(

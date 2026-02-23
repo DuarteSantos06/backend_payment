@@ -27,6 +27,14 @@ public class Payment {
         this.currency = currency;
         this.timestamp = new Date();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
     public long getAmount() {
         return amount;
     }
